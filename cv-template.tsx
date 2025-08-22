@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Mail, Phone, MapPin, Linkedin, Award, Users, TrendingUp } from "lucide-react"
+import { Mail, Phone, MapPin, Linkedin, Award, Users, TrendingUp, Github } from "lucide-react"
 
 export default function ProfessionalCV() {
   return (
@@ -11,9 +11,9 @@ export default function ProfessionalCV() {
       {/* Header Section */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-2">NIMANTHA BANDARA</h1>
-        <h2 className="text-2xl font-semibold text-blue-600 mb-4">Lead Data Scientist</h2>
+        <h2 className="text-2xl font-semibold text-blue-600 mb-4">Founder & Lead Data Scientist</h2>
 
-        <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+        <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600 mb-4">
           <div className="flex items-center gap-1">
             <Phone className="w-4 h-4" />
             <span>+94 716 113 385</span>
@@ -26,11 +26,32 @@ export default function ProfessionalCV() {
             <MapPin className="w-4 h-4" />
             <span>Borelasgamuwa, Sri Lanka</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Linkedin className="w-4 h-4" />
-            <span>linkedin.com/in/nimantha-bandara-986192132</span>
-          </div>
+          
         </div>
+        <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+          <div className="flex items-center gap-1">
+            <a 
+              href="https://www.linkedin.com/in/nimantha-bandara-986192132" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-blue-600"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>Linkedin Profile</span>
+            </a>
+          </div>
+           <div className="flex items-center gap-1">
+            <a 
+              href="https://github.com/RNimantha" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-blue-600"
+            >
+              <Github className="w-4 h-4" />
+              <span>GitHub Profile</span>
+            </a>
+          </div>
+          </div>
       </div>
 
       {/* Professional Summary */}
@@ -52,7 +73,43 @@ export default function ProfessionalCV() {
       <Card className="mb-6">
         <CardContent className="p-6">
           <h3 className="text-xl font-bold text-gray-900 mb-4">PROFESSIONAL EXPERIENCE</h3>
+                  
 
+          {/* Deta Labs*/}
+          <div>
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900">Founder & CEO</h4>
+                <a 
+                    href="https://www.detalabsai.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-blue-600 font-medium hover:underline"
+                  >
+                    DetaLabs AI (Pvt) Ltd
+                  </a>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600">Nov 2022 - Present</p>
+                <Badge variant="secondary" className="mt-1">
+                  Self Employed
+                </Badge>
+              </div>
+            </div>
+
+            <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
+              {/* <li>Identified business problems solvable through data analytics and machine learning approaches</li>
+              <li>Developed data-driven solutions for student performance improvement and risk detection</li>
+              <li>Built real-time analytics dashboards supporting multiple client teams</li>
+              <li>Created full-stack POC applications for key R&D initiatives</li> */}
+              <p> As the founder of DetaLabs AI, I'm proud to lead a venture dedicated to pushing the boundaries of artificial intelligence. 
+                We specialize in crafting intelligent AI agents designed to automate complex tasks, 
+                developing high-performance computer vision applications for insightful analysis, 
+                and building powerful machine learning solutions—from deep learning to neural networks—that turn data into actionable intelligence. 
+                At DetaLabs AI, we're focused on delivering innovative AI that truly makes a difference.</p>
+            </ul>
+          </div>
+          <Separator className="my-6" />
           {/* Current Role */}
           <div className="mb-6">
             <div className="flex justify-between items-start mb-2">
@@ -153,6 +210,8 @@ export default function ProfessionalCV() {
             </ul>
           </div>
 
+  
+
           <Separator className="my-6" />
 
           {/* Internship */}
@@ -172,6 +231,8 @@ export default function ProfessionalCV() {
               <li>Created full-stack POC applications for key R&D initiatives</li>
             </ul>
           </div>
+
+
         </CardContent>
       </Card>
 
