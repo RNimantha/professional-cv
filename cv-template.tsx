@@ -59,7 +59,7 @@ export default function ProfessionalCV() {
         <CardContent className="p-6">
           <h3 className="text-xl font-bold text-gray-900 mb-3">PROFESSIONAL SUMMARY</h3>
           <p className="text-gray-700 leading-relaxed">
-            Results-driven Lead Data Scientist with 4+ years of experience in advanced analytics, AI initiatives, and
+            Results-driven Lead Data Scientist with 5+ years of experience in advanced analytics, AI initiatives, and
             business intelligence. Proven track record of leading distributed teams, delivering impactful data-driven
             solutions, and driving operational efficiency improvements of up to 50%. Specialized in Natural Language
             Processing, Machine Learning, and AI implementation with expertise in cloud platforms and modern data
