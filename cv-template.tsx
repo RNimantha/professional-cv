@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -10,6 +11,18 @@ export default function ProfessionalCV() {
     <div className="max-w-4xl mx-auto p-6 bg-white">
       {/* Header Section */}
       <div className="text-center mb-8">
+        <div className="mb-4 flex justify-center">
+          <div className="overflow-hidden rounded-full border-4 border-gray-100 shadow-lg">
+            <Image
+              src="/nimantha.jpg"
+              alt="Nimantha Bandara"
+              width={144}
+              height={144}
+              className="h-36 w-36 object-cover"
+              priority
+            />
+          </div>
+        </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-2">NIMANTHA BANDARA</h1>
         <h2 className="text-2xl font-semibold text-blue-600 mb-4">Founder & Lead Data Scientist</h2>
 
@@ -115,14 +128,66 @@ export default function ProfessionalCV() {
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h4 className="text-lg font-semibold text-gray-900">Lead Data Scientist</h4>
-                <p className="text-blue-600 font-medium">Firehouse Technology</p>
+                <p className="text-blue-600 font-medium">Mortar AI PVT LTD</p>
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-600">Oct 2024 - Present</p>
+                <p className="text-sm text-gray-600">Sep 2024 - Present</p>
                 <Badge variant="secondary" className="mt-1">
                   Current Role
                 </Badge>
               </div>
+            </div>
+
+            {/* <div className="flex flex-wrap gap-2 mb-3">
+              {["Python", "Azure", "Databricks", "FastAPI", "LangGraph", "LangChain", "RAG", "n8n", "Celery"].map(
+                (tech) => (
+                  <Badge key={tech} variant="outline">
+                    {tech}
+                  </Badge>
+                ),
+              )}
+            </div> */}
+
+            <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
+              <li>
+                Collaborate on the architecture and development of Helix, an agentic AI system built with LangGraph,
+                Redis, Azure AI Search, FastAPI, and RAG-based retrieval pipelines
+              </li>
+              <li>
+                Designed and optimized RAG workflows to improve response quality, retrieval accuracy, and overall
+                system intelligence while preserving existing ML model performance
+              </li>
+              <li>
+                Manage a distributed Data Science team across Australia and Sri Lanka, driving collaboration, delivery
+                quality, and technical alignment
+              </li>
+              <li>
+                Partner with Business Analysts and the PMO to gather requirements, define solution approaches, and
+                support project planning
+              </li>
+              <li>Build end-to-end data pipelines across multiple data sources for AI and analytics workflows</li>
+              <li>
+                Collaborate closely with QA, Development, and DevOps teams to provide technical knowledge transfer,
+                requirement clarification, and implementation support
+              </li>
+              <li>Developed n8n automation workflows to streamline ad hoc operational and business processes</li>
+              <li>
+                Execute POCs for strategic R&amp;D initiatives, assessing feasibility, technical design, and business
+                impact for emerging AI and data solutions
+              </li>
+            </ul>
+          </div>
+
+          <Separator className="my-6" />
+
+          {/* Lead Role */}
+          <div className="mb-6">
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900">Lead Data Scientist</h4>
+                <p className="text-blue-600 font-medium">Firehouse Technology</p>
+              </div>
+              <p className="text-sm text-gray-600">Feb 2023 - Sep 2024</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-4 mb-4">
@@ -245,11 +310,13 @@ export default function ProfessionalCV() {
             <div>
               <h4 className="font-semibold text-gray-800 mb-2">Programming & Frameworks</h4>
               <div className="flex flex-wrap gap-2">
-                {["Python", "SQL", "PySpark", "TensorFlow", "PyTorch", "Flask", "React", "JavaScript"].map((skill) => (
-                  <Badge key={skill} variant="outline">
-                    {skill}
-                  </Badge>
-                ))}
+                {["Python", "SQL", "PySpark", "TensorFlow", "PyTorch", "Flask", "FastAPI", "Celery", "LangGraph"].map(
+                  (skill) => (
+                    <Badge key={skill} variant="outline">
+                      {skill}
+                    </Badge>
+                  ),
+                )}
               </div>
             </div>
 
@@ -269,18 +336,20 @@ export default function ProfessionalCV() {
             <div>
               <h4 className="font-semibold text-gray-800 mb-2">Cloud & Data Platforms</h4>
               <div className="flex flex-wrap gap-2">
-                {["Azure", "GCP", "Databricks", "Kafka", "Airbyte", "Azure Data Lake"].map((skill) => (
-                  <Badge key={skill} variant="outline">
-                    {skill}
-                  </Badge>
-                ))}
+                {["Azure", "GCP", "Databricks", "Kafka", "Airbyte", "Azure AI Search", "Redis", "Azure Data Lake"].map(
+                  (skill) => (
+                    <Badge key={skill} variant="outline">
+                      {skill}
+                    </Badge>
+                  ),
+                )}
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold text-gray-800 mb-2">Analytics & Visualization</h4>
+              <h4 className="font-semibold text-gray-800 mb-2">Analytics, Automation & Tools</h4>
               <div className="flex flex-wrap gap-2">
-                {["Power BI", "ETL/SSMS", "GraphQL", "Postman", "Figma"].map((skill) => (
+                {["Power BI", "ETL/SSMS", "GraphQL", "Postman", "Figma", "n8n"].map((skill) => (
                   <Badge key={skill} variant="outline">
                     {skill}
                   </Badge>
@@ -298,6 +367,48 @@ export default function ProfessionalCV() {
 
           <div className="space-y-6">
             {/* Project 1 */}
+            <div>
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900">Mortar Helix</h4>
+                  <p className="text-blue-600 font-medium">Mortar AI PVT LTD</p>
+                </div>
+                <p className="text-sm text-gray-600">2024 - Present</p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-3">
+                {["Python", "LangGraph", "Azure AI Search", "Redis", "SerpAPI", "Keycloak", "RAG", "Flask"].map(
+                  (tech) => (
+                    <Badge key={tech} variant="secondary" className="text-xs">
+                      {tech}
+                    </Badge>
+                  ),
+                )}
+              </div>
+
+              <ul className="list-disc list-inside text-gray-700 space-y-1 ml-4">
+                <li>
+                  Built the backend for an AI co-pilot that unified reasoning across enterprise documents, SQL data,
+                  ML forecasts, and fresh web context through a single endpoint
+                </li>
+                <li>
+                  Orchestrated multi-tool planning and execution with LangGraph, combining document retrieval, SQL,
+                  web search, visualization, and synthesis agents
+                </li>
+                <li>
+                  Implemented streaming responses with incremental tokens, tables, charts, and citations for real-time
+                  co-pilot interactions
+                </li>
+                <li>
+                  Integrated Azure AI Search, Redis, SerpAPI, Keycloak OIDC, and Azure Key Vault to support secure,
+                  scalable, enterprise-ready deployment
+                </li>
+              </ul>
+            </div>
+
+            <Separator />
+
+            {/* Project 2 */}
             <div>
               <div className="flex justify-between items-start mb-2">
                 <div>
@@ -325,7 +436,7 @@ export default function ProfessionalCV() {
 
             <Separator />
 
-            {/* Project 2 */}
+            {/* Project 3 */}
             <div>
               <div className="flex justify-between items-start mb-2">
                 <div>
@@ -356,7 +467,7 @@ export default function ProfessionalCV() {
 
             <Separator />
 
-            {/* Project 3 */}
+            {/* Project 4 */}
             <div>
               <div className="flex justify-between items-start mb-2">
                 <div>

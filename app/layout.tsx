@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: 'Nimantha Bandara',
   description: 'Nimantha Bandara\'s personal website',
   generator: 'Next.js',
+  icons: {
+    icon: '/nimantha.jpg',
+    shortcut: '/nimantha.jpg',
+    apple: '/nimantha.jpg',
+  },
 }
 
 export default function RootLayout({
