@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { useTheme } from "next-themes"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import {
   Mail,
   Phone,
@@ -41,6 +42,23 @@ function GitHubIcon({ className }: { className?: string }) {
   )
 }
 
+type Project = {
+  title: string
+  company: string
+  period: string
+  featured: boolean
+  badge: string
+  summary: string
+  outcome: string
+  role: string
+  challenge: string
+  solution: string[]
+  impact: string[]
+  tech: string[]
+  metric: { value: string; label: string } | null
+  highlights: string[]
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
    DATA
 ───────────────────────────────────────────────────────────────────────────── */
@@ -52,6 +70,8 @@ const NAV_ITEMS = [
   { label: "Projects", href: "#projects" },
   { label: "Education", href: "#education" },
 ]
+
+const SIDE_NAV_ITEMS = [{ label: "Home", href: "#hero" }, ...NAV_ITEMS]
 
 const IMPACT_STATS = [
   {
@@ -238,13 +258,28 @@ const SKILL_CATEGORIES = [
   },
 ]
 
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     title: "Mortar Helix",
     company: "Mortar AI PVT LTD",
     period: "2024 – Present",
     featured: true,
     badge: "",
+    summary: "Enterprise AI co-pilot backend unifying retrieval, reasoning, SQL access, forecasts, and live web context.",
+    outcome: "Production-grade agentic platform for enterprise knowledge and analysis workflows.",
+    role: "Lead architect and backend owner for the co-pilot orchestration layer.",
+    challenge:
+      "The system needed to answer questions across enterprise documents, SQL data, forecast outputs, and live web context without feeling like disconnected tools bolted together.",
+    solution: [
+      "Designed a single orchestration layer in LangGraph to coordinate retrieval, planning, tool execution, synthesis, and citation generation.",
+      "Built streaming response flows so users could receive incremental text, tables, charts, and evidence instead of waiting for one final payload.",
+      "Integrated Azure AI Search, Redis, SerpAPI, Keycloak, and secure secret handling to keep the platform enterprise-ready.",
+    ],
+    impact: [
+      "Created a more convincing showcase of multi-agent reasoning and production AI engineering, not just prompt chaining.",
+      "Enabled one endpoint to unify multiple data modes and output types for analysts and operational users.",
+      "Demonstrated secure deployment patterns, retrieval quality work, and real-time UX thinking in the same project.",
+    ],
     tech: ["Python", "LangGraph", "Azure AI Search", "Redis", "SerpAPI", "Keycloak", "RAG", "Flask"],
     metric: null,
     highlights: [
@@ -260,6 +295,21 @@ const PROJECTS = [
     period: "2023 – 2024",
     featured: false,
     badge: "",
+    summary: "End-to-end churn prediction pipeline combining batch modelling, streaming data, and intervention signals.",
+    outcome: "Reached 92% accuracy and helped reduce churn by 28% with earlier intervention.",
+    role: "Lead data scientist across modelling, data pipeline design, and operational rollout.",
+    challenge:
+      "The business needed earlier visibility into churn risk, but data was fragmented, high-volume, and time-sensitive.",
+    solution: [
+      "Built a full prediction workflow from feature engineering to training, evaluation, deployment, and reporting.",
+      "Used PySpark and Kafka to handle large-scale batch and streaming data without degrading model freshness.",
+      "Connected predictions to intervention workflows so the model translated into decisions rather than static dashboards.",
+    ],
+    impact: [
+      "Delivered a model with 92% accuracy across 10M+ customer records.",
+      "Reduced churn by 28% through earlier action on high-risk accounts.",
+      "Showcased practical ML delivery from infrastructure to business outcome.",
+    ],
     tech: ["Python", "TensorFlow", "Azure ML", "PySpark", "Kafka", "Power BI"],
     metric: { value: "92%", label: "Accuracy" },
     highlights: [
@@ -275,6 +325,21 @@ const PROJECTS = [
     period: "2023 – 2024",
     featured: false,
     badge: "Personal Initiative",
+    summary: "Hybrid ML entity resolution engine designed for large, noisy client datasets and cost-sensitive workloads.",
+    outcome: "Cut processing time by 67% and scaled resolution to 17 million records.",
+    role: "Designer of the hybrid matching strategy and performance optimisation approach.",
+    challenge:
+      "The legacy rule-based process was too slow, too brittle, and could not scale to the volume and ambiguity present in real client records.",
+    solution: [
+      "Combined MinHash blocking with learned representations to reduce the search space while improving matching quality.",
+      "Replaced static rule-heavy logic with a more adaptive hybrid workflow tuned for noisy enterprise data.",
+      "Optimised the execution path to reduce compute cost and make large-scale runs operationally realistic.",
+    ],
+    impact: [
+      "Reduced processing time from 30 minutes to 10 minutes for comparable workloads.",
+      "Scaled the solution to 17M records where the prior approach could not operate effectively.",
+      "Proved the value of applied ML architecture over legacy heuristics in a real production context.",
+    ],
     tech: ["Python", "Autoencoders", "MinHash", "Deep Learning", "Azure", "ETL"],
     metric: { value: "67%", label: "Faster" },
     highlights: [
@@ -290,6 +355,21 @@ const PROJECTS = [
     period: "2023 – 2024",
     featured: false,
     badge: "",
+    summary: "NLP-driven duplicate detection and clustering workflow for fragmented product catalogs across data sources.",
+    outcome: "Improved product matching quality with an interactive review flow for recommendation decisions.",
+    role: "End-to-end builder across matching logic, backend workflows, and reviewer experience.",
+    challenge:
+      "Products from multiple systems were inconsistent, duplicated, and difficult to cluster reliably without heavy manual review.",
+    solution: [
+      "Built an NLP and neural-network-based resolution pipeline for similarity scoring and clustering.",
+      "Created a Flask-based decision interface so humans could validate cluster recommendations efficiently.",
+      "Connected the application to Databricks and Azure-backed processing for larger catalogue workloads.",
+    ],
+    impact: [
+      "Improved confidence in duplicate detection across disconnected product data sources.",
+      "Reduced manual review effort by presenting structured recommendations instead of raw records.",
+      "Showcased full-stack ownership across ML logic, workflow design, and usability.",
+    ],
     tech: ["Python", "Flask", "NLP", "Neural Networks", "Databricks", "Azure", "SQL"],
     metric: null,
     highlights: [
@@ -305,6 +385,21 @@ const PROJECTS = [
     period: "2024",
     featured: false,
     badge: "",
+    summary: "AI assistant for workflow guidance, context-aware responses, and operational decision support.",
+    outcome: "Improved business workflow efficiency by 35% across integrated operational processes.",
+    role: "Technical lead for the co-pilot architecture and cross-functional delivery.",
+    challenge:
+      "Teams needed a practical AI assistant that could work with business context rather than produce generic LLM-style answers.",
+    solution: [
+      "Implemented a RAG-based assistant with domain grounding and workflow-aware response design.",
+      "Aligned the system with business operations so the assistant was useful inside actual day-to-day processes.",
+      "Led a distributed engineering team to move the project from concept into a working internal capability.",
+    ],
+    impact: [
+      "Improved operational efficiency by 35% across integrated workflows.",
+      "Demonstrated applied LLM design beyond experimentation by tying responses to context and action.",
+      "Highlighted leadership across a five-engineer team spanning Sri Lanka and Australia.",
+    ],
     tech: ["Python", "GPT", "LangChain", "RAG", "Azure", "NLP"],
     metric: { value: "35%", label: "Efficiency" },
     highlights: [
@@ -320,6 +415,21 @@ const PROJECTS = [
     period: "2021",
     featured: false,
     badge: "",
+    summary: "Predictive analytics application for surfacing academic risk patterns from sequential student data.",
+    outcome: "Delivered actionable educator insights for intervention planning in Australian public schools.",
+    role: "Developer across modelling, backend services, and interactive front-end analytics.",
+    challenge:
+      "Educators needed a clearer way to identify student performance patterns early enough to support intervention planning.",
+    solution: [
+      "Built an RNN-based predictive model tuned for sequential academic data and longitudinal behaviour signals.",
+      "Delivered a Flask and React application so non-technical stakeholders could explore predictions visually.",
+      "Added feature-importance style analysis to make the predictions more interpretable for decision makers.",
+    ],
+    impact: [
+      "Turned raw academic data into actionable intervention insights for schools.",
+      "Combined modelling and application delivery in a single project, showing end-to-end ownership early in my career.",
+      "Demonstrated that AI outputs become more useful when paired with interpretation and interface design.",
+    ],
     tech: ["Python", "RNN", "Flask", "React", "Feature Engineering"],
     metric: null,
     highlights: [
@@ -480,20 +590,44 @@ function useScrollReveal() {
 export default function ProfessionalCV() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("#hero")
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   useScrollReveal()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60)
+
+      const current = [...SIDE_NAV_ITEMS]
+        .reverse()
+        .find((item) => {
+          const el = document.querySelector(item.href)
+          if (!el) return false
+          return window.scrollY + 160 >= (el as HTMLElement).offsetTop
+        })
+
+      setActiveSection(current?.href ?? "#hero")
+    }
+
+    onScroll()
     window.addEventListener("scroll", onScroll)
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
   const scrollTo = (href: string) => {
     setMobileOpen(false)
+    setActiveSection(href)
     const el = document.querySelector(href)
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
   }
+
+  const openProject = (project: Project) => {
+    setSelectedProject(project)
+  }
+
+  const featuredProject = PROJECTS.find((project) => project.featured) ?? PROJECTS[0]
+  const supportingProjects = PROJECTS.filter((project) => project.title !== featuredProject.title)
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#050b18] text-slate-900 dark:text-slate-100 overflow-x-hidden">
@@ -519,7 +653,7 @@ export default function ProfessionalCV() {
         <nav
           role="navigation"
           aria-label="Main navigation"
-          className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+          className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 lg:hidden ${
             scrolled
               ? "bg-white/90 dark:bg-[#050b18]/90 backdrop-blur-2xl border-b border-slate-200 dark:border-white/5 shadow-sm dark:shadow-xl dark:shadow-black/40"
               : "bg-transparent"
@@ -596,14 +730,94 @@ export default function ProfessionalCV() {
         </nav>
       </header>
 
-      <main>
+      <aside className="hidden lg:flex fixed inset-y-0 left-0 z-40 w-72 xl:w-80">
+        <div className="flex w-full flex-col justify-between border-r border-slate-200/80 dark:border-white/8 bg-white/78 dark:bg-[#050b18]/82 backdrop-blur-2xl px-6 py-8 xl:px-8">
+          <div>
+            <button
+              onClick={() => scrollTo("#hero")}
+              className="text-left"
+              aria-label="Back to top"
+            >
+              <div className="text-slate-900 dark:text-white font-black text-2xl tracking-tight">
+                <span className="text-blue-600 dark:text-blue-400">N</span>imantha
+                <span className="text-blue-600 dark:text-blue-400">.</span>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                Founder, Lead Data Scientist, and AI engineer building production systems.
+              </p>
+            </button>
+
+            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.24em] text-emerald-700 dark:border-emerald-500/25 dark:bg-emerald-500/10 dark:text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+              Available
+            </div>
+
+            <div className="mt-12">
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                Navigation
+              </p>
+              <div className="space-y-2">
+                {SIDE_NAV_ITEMS.map((item) => {
+                  const isActive = activeSection === item.href
+
+                  return (
+                    <button
+                      key={item.href}
+                      onClick={() => scrollTo(item.href)}
+                      className={`group flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm transition-all duration-300 ${
+                        isActive
+                          ? "bg-slate-900 text-white shadow-lg shadow-slate-900/10 dark:bg-white dark:text-slate-900 dark:shadow-black/30"
+                          : "text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/6 dark:hover:text-white"
+                      }`}
+                    >
+                      <span className="font-medium">{item.label}</span>
+                      <span
+                        className={`h-2 w-2 rounded-full transition-all ${
+                          isActive
+                            ? "bg-cyan-400 dark:bg-blue-500"
+                            : "bg-slate-300 group-hover:bg-blue-500 dark:bg-slate-700 dark:group-hover:bg-blue-400"
+                        }`}
+                      />
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            <div className="rounded-3xl border border-slate-200 bg-slate-100/80 p-4 dark:border-white/8 dark:bg-white/[0.04]">
+              <p className="text-xs uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Contact</p>
+              <a
+                href="mailto:nimantabandara@gmail.com"
+                className="mt-3 block text-sm font-medium text-slate-800 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+              >
+                nimantabandara@gmail.com
+              </a>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Borelasgamuwa, Sri Lanka</p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <a
+                href="mailto:nimantabandara@gmail.com"
+                className="flex-1 rounded-2xl bg-blue-600 px-4 py-3 text-center text-sm font-medium text-white transition-all hover:scale-[1.02] hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:bg-blue-500"
+              >
+                Hire Me
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main className="lg:pl-72 xl:pl-80">
         {/* ══════════════════════════════════════════
             HERO
         ══════════════════════════════════════════ */}
         <section
           id="hero"
           aria-label="Introduction"
-          className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 dot-grid"
+          className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-16 dot-grid scroll-mt-24 lg:scroll-mt-8"
         >
           <div className="relative z-10 text-center max-w-4xl mx-auto">
 
@@ -712,7 +926,7 @@ export default function ProfessionalCV() {
         {/* ══════════════════════════════════════════
             IMPACT STATS
         ══════════════════════════════════════════ */}
-        <section id="about" aria-label="Key achievements" className="py-24 px-6">
+        <section id="about" aria-label="Key achievements" className="py-24 px-6 scroll-mt-24 lg:scroll-mt-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-14 reveal">
               <p className="text-blue-600 dark:text-blue-400 text-xs uppercase tracking-[0.25em] font-semibold mb-3">
@@ -764,7 +978,7 @@ export default function ProfessionalCV() {
         {/* ══════════════════════════════════════════
             EXPERIENCE
         ══════════════════════════════════════════ */}
-        <section id="experience" aria-label="Professional experience" className="py-24 px-6">
+        <section id="experience" aria-label="Professional experience" className="py-24 px-6 scroll-mt-24 lg:scroll-mt-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-14 reveal">
               <p className="text-blue-600 dark:text-blue-400 text-xs uppercase tracking-[0.25em] font-semibold mb-3 flex items-center justify-center gap-2">
@@ -858,7 +1072,7 @@ export default function ProfessionalCV() {
         {/* ══════════════════════════════════════════
             SKILLS
         ══════════════════════════════════════════ */}
-        <section id="skills" aria-label="Technical skills" className="py-24 px-6">
+        <section id="skills" aria-label="Technical skills" className="py-24 px-6 scroll-mt-24 lg:scroll-mt-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-14 reveal">
               <p className="text-cyan-600 dark:text-cyan-400 text-xs uppercase tracking-[0.25em] font-semibold mb-3 flex items-center justify-center gap-2">
@@ -901,7 +1115,7 @@ export default function ProfessionalCV() {
         {/* ══════════════════════════════════════════
             PROJECTS
         ══════════════════════════════════════════ */}
-        <section id="projects" aria-label="Key projects" className="py-24 px-6">
+        <section id="projects" aria-label="Key projects" className="py-24 px-6 scroll-mt-24 lg:scroll-mt-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-14 reveal">
               <p className="text-violet-600 dark:text-violet-400 text-xs uppercase tracking-[0.25em] font-semibold mb-3 flex items-center justify-center gap-2">
@@ -909,67 +1123,173 @@ export default function ProfessionalCV() {
                 Portfolio
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Key Projects</h2>
+              <p className="mt-3 max-w-2xl mx-auto text-sm text-slate-500 dark:text-slate-400">
+                A flagship AI platform supported by focused delivery work across prediction, resolution, clustering, and analytics systems.
+              </p>
+              <p className="mt-3 max-w-xl mx-auto text-xs uppercase tracking-[0.22em] text-slate-400 dark:text-slate-500">
+                Open each case study for architecture, challenge, delivery approach, and impact
+              </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-5">
-              {PROJECTS.map((project, idx) => (
-                <article
-                  key={idx}
-                  className={`relative glass-card rounded-2xl p-6 transition-all duration-300 reveal ${
-                    project.featured
-                      ? "md:col-span-2 !border-blue-200 dark:!border-blue-500/25 hover:!border-blue-300 dark:hover:!border-blue-500/40"
-                      : ""
-                  }`}
-                >
-                  {project.featured && (
-                    <div className="absolute top-5 right-5">
-                      <span className="text-xs px-3 py-1 bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 rounded-full font-medium">
-                        Featured
-                      </span>
-                    </div>
-                  )}
+            <div className="grid gap-5 xl:grid-cols-[minmax(0,1.45fr)_minmax(300px,0.85fr)] mb-5">
+              <article className="reveal relative overflow-hidden rounded-[2rem] border border-violet-200 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] dark:border-violet-500/20 dark:bg-white/[0.03] dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.14),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.12),transparent_30%)]"
+                />
 
-                  <div className="flex justify-between items-start gap-4 mb-3">
+                <div className="relative z-10">
+                  <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                     <div className="min-w-0">
-                      <h3 className="font-bold text-slate-900 dark:text-white text-base md:text-lg leading-snug">{project.title}</h3>
-                      <p className="text-blue-600 dark:text-blue-400 text-sm">{project.company}</p>
+                      <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-violet-700 dark:border-violet-500/25 dark:bg-violet-500/10 dark:text-violet-300">
+                        Featured Case Study
+                      </div>
+                      <h3 className="mt-4 text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                        {featuredProject.title}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+                        {featuredProject.company}
+                        <span className="mx-2 text-slate-300 dark:text-slate-600">•</span>
+                        {featuredProject.period}
+                      </p>
                     </div>
-                    <div className="flex-shrink-0 text-right">
-                      <span className="text-xs text-slate-400 dark:text-slate-500 block">{project.period}</span>
-                      {project.metric && (
-                        <div className="mt-1">
-                          <span className="text-2xl font-black text-cyan-600 dark:text-cyan-400">{project.metric.value}</span>
-                          <span className="text-xs text-slate-400 dark:text-slate-500 block">{project.metric.label}</span>
-                        </div>
-                      )}
+
+                    <div className="rounded-2xl border border-slate-200 bg-white/85 px-4 py-3 text-right dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Focus</p>
+                      <p className="mt-2 text-sm font-semibold text-slate-800 dark:text-white">Agentic AI Platform</p>
                     </div>
                   </div>
 
+                  <p className="max-w-3xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                    {featuredProject.summary}
+                  </p>
+
+                  <div className="mt-8 grid gap-4 md:grid-cols-3">
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Scope</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {featuredProject.highlights[0]}
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Architecture</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {featuredProject.highlights[1]}
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50/90 p-4 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Outcome</p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {featuredProject.outcome}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => openProject(featuredProject)}
+                      className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition-all hover:scale-[1.02] hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+                    >
+                      See Full Case Study
+                      <ExternalLink className="w-4 h-4" />
+                    </button>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                      Detailed view covers role, challenge, architecture, and measurable outcomes.
+                    </p>
+                  </div>
+                </div>
+              </article>
+
+              <aside className="reveal rounded-[2rem] border border-slate-200 bg-slate-100/80 p-6 dark:border-white/8 dark:bg-white/[0.04]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                  Capabilities Demonstrated
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {featuredProject.tech.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-white/8 dark:bg-white/[0.05] dark:text-slate-300"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-8 space-y-3">
+                  {featuredProject.highlights.slice(2).map((highlight) => (
+                    <div
+                      key={highlight}
+                      className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/8 dark:bg-[#0d1728]/80"
+                    >
+                      <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{highlight}</p>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+            </div>
+
+            <div className="mb-6 flex items-center justify-between gap-4 reveal">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                  Supporting Delivery Work
+                </p>
+                <h3 className="mt-2 text-xl font-bold text-slate-900 dark:text-white">More systems with measurable outcomes</h3>
+              </div>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {supportingProjects.map((project) => (
+                <article key={project.title} className="reveal rounded-3xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/8 dark:bg-white/[0.03] dark:hover:shadow-black/20">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <h4 className="text-lg font-bold leading-snug text-slate-900 dark:text-white">{project.title}</h4>
+                      <p className="mt-1 text-sm text-blue-600 dark:text-blue-400">{project.company}</p>
+                    </div>
+                    {project.metric ? (
+                      <div className="flex-shrink-0 rounded-2xl border border-cyan-200 bg-cyan-50 px-3 py-2 text-right dark:border-cyan-500/20 dark:bg-cyan-500/10">
+                        <span className="block text-xl font-black text-cyan-700 dark:text-cyan-300">{project.metric.value}</span>
+                        <span className="block text-[11px] uppercase tracking-[0.18em] text-cyan-700/70 dark:text-cyan-300/70">
+                          {project.metric.label}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">{project.period}</span>
+                    )}
+                  </div>
+
+                  <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{project.summary}</p>
+
+                  <p className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium leading-relaxed text-slate-700 dark:border-white/8 dark:bg-white/[0.04] dark:text-slate-200">
+                    {project.outcome}
+                  </p>
+
                   {project.badge && (
-                    <span className="inline-block text-xs px-2.5 py-0.5 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20 rounded-full mb-3 font-medium">
+                    <span className="mt-4 inline-block rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300">
                       {project.badge}
                     </span>
                   )}
 
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.tech.map((t) => (
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tech.slice(0, 4).map((item) => (
                       <span
-                        key={t}
-                        className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-500 dark:text-slate-400 rounded-lg hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+                        key={item}
+                        className="rounded-xl border border-slate-200 px-3 py-1.5 text-xs text-slate-500 dark:border-white/[0.08] dark:text-slate-400"
                       >
-                        {t}
+                        {item}
                       </span>
                     ))}
                   </div>
 
-                  <ul className="space-y-2">
-                    {project.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-400">
-                        <span className="mt-2 w-1 h-1 rounded-full bg-violet-500 dark:bg-violet-400 flex-shrink-0" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
+                  <button
+                    type="button"
+                    onClick={() => openProject(project)}
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition-colors hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                  >
+                    See Details
+                    <ExternalLink className="w-4 h-4" />
+                  </button>
                 </article>
               ))}
             </div>
@@ -981,7 +1301,7 @@ export default function ProfessionalCV() {
         {/* ══════════════════════════════════════════
             EDUCATION
         ══════════════════════════════════════════ */}
-        <section id="education" aria-label="Education" className="py-24 px-6">
+        <section id="education" aria-label="Education" className="py-24 px-6 scroll-mt-24 lg:scroll-mt-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-14 reveal">
               <p className="text-emerald-600 dark:text-emerald-400 text-xs uppercase tracking-[0.25em] font-semibold mb-3 flex items-center justify-center gap-2">
@@ -1130,6 +1450,139 @@ export default function ProfessionalCV() {
           </p>
         </div>
       </footer>
+
+      <Sheet open={selectedProject !== null} onOpenChange={(open) => !open && setSelectedProject(null)}>
+        <SheetContent
+          side="right"
+          className="w-full border-l border-slate-200 bg-slate-50 p-0 sm:max-w-2xl lg:max-w-4xl dark:border-white/8 dark:bg-[#07111f]"
+        >
+          {selectedProject && (
+            <div className="h-full overflow-y-auto">
+              <div className="border-b border-slate-200 bg-white/90 px-6 py-6 backdrop-blur-xl dark:border-white/8 dark:bg-[#07111f]/95 sm:px-8">
+                <SheetHeader className="p-0 pr-10">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-700 dark:border-violet-500/20 dark:bg-violet-500/10 dark:text-violet-300">
+                          Case Study
+                        </span>
+                        {selectedProject.badge && (
+                          <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300">
+                            {selectedProject.badge}
+                          </span>
+                        )}
+                      </div>
+                      <SheetTitle className="mt-4 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+                        {selectedProject.title}
+                      </SheetTitle>
+                      <SheetDescription className="mt-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+                        {selectedProject.company}
+                        <span className="mx-2 text-slate-300 dark:text-slate-600">•</span>
+                        {selectedProject.period}
+                      </SheetDescription>
+                    </div>
+
+                    {selectedProject.metric && (
+                      <div className="rounded-2xl border border-cyan-200 bg-cyan-50 px-4 py-3 text-right dark:border-cyan-500/20 dark:bg-cyan-500/10">
+                        <span className="block text-2xl font-black text-cyan-700 dark:text-cyan-300">{selectedProject.metric.value}</span>
+                        <span className="block text-[11px] uppercase tracking-[0.18em] text-cyan-700/70 dark:text-cyan-300/70">
+                          {selectedProject.metric.label}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </SheetHeader>
+
+                <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                  {selectedProject.summary}
+                </p>
+              </div>
+
+              <div className="px-6 py-6 sm:px-8 sm:py-8">
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/8 dark:bg-white/[0.04]">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Role</p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200">{selectedProject.role}</p>
+                  </div>
+                  <div className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/8 dark:bg-white/[0.04]">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Outcome</p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200">{selectedProject.outcome}</p>
+                  </div>
+                  <div className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/8 dark:bg-white/[0.04]">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">Technology</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {selectedProject.tech.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-xl border border-slate-200 px-3 py-1.5 text-xs text-slate-500 dark:border-white/[0.08] dark:text-slate-300"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
+                  <div className="space-y-6">
+                    <section className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                        The Challenge
+                      </p>
+                      <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {selectedProject.challenge}
+                      </p>
+                    </section>
+
+                    <section className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                        What I Built
+                      </p>
+                      <div className="mt-4 space-y-3">
+                        {selectedProject.solution.map((item) => (
+                          <div key={item} className="flex items-start gap-3 rounded-2xl bg-slate-50 px-4 py-4 dark:bg-[#0d1728]">
+                            <span className="mt-1.5 h-2 w-2 rounded-full bg-blue-500 dark:bg-blue-400" />
+                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  </div>
+
+                  <div className="space-y-6">
+                    <section className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                        Technical Highlights
+                      </p>
+                      <div className="mt-4 space-y-3">
+                        {selectedProject.highlights.map((item) => (
+                          <div key={item} className="rounded-2xl border border-slate-200 px-4 py-4 dark:border-white/[0.08]">
+                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section className="rounded-[2rem] border border-slate-200 bg-white p-6 dark:border-white/8 dark:bg-white/[0.04]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">
+                        Why It Matters
+                      </p>
+                      <div className="mt-4 space-y-3">
+                        {selectedProject.impact.map((item) => (
+                          <div key={item} className="flex items-start gap-3">
+                            <span className="mt-1.5 h-2 w-2 rounded-full bg-violet-500 dark:bg-violet-400" />
+                            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">{item}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   )
 }
