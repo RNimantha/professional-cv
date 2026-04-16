@@ -22,7 +22,6 @@ import {
   Star,
   Sun,
   Moon,
-  Download,
 } from "lucide-react"
 
 /* ── Brand icons (lucide deprecated these) ─────────────────────────────────── */
@@ -656,15 +655,6 @@ export default function ProfessionalCV() {
 
             {/* CTA buttons */}
             <div className="flex flex-wrap justify-center gap-3 mb-10">
-              <a
-                href="/nimantha-bandara-cv.pdf"
-                download
-                aria-label="Download CV as PDF"
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white rounded-2xl font-semibold text-sm transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/30"
-              >
-                <Download className="w-4 h-4" />
-                Download CV
-              </a>
               <a
                 href="https://www.linkedin.com/in/nimantha-bandara-986192132"
                 target="_blank"
